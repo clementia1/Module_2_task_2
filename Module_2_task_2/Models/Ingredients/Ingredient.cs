@@ -10,7 +10,7 @@ namespace Module_2_task_2.Models
     {
         public string Name { get; set; }
         public double Weight { get; set; }
-        public double CaloriePerGram { get; set; }
+        public virtual double CaloriePerGram { get; set; }
         public Country CountryOfOrigin { get; set; }
         public double Price { get; set; }
 

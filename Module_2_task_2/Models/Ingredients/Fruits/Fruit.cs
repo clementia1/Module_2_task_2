@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 
 namespace Module_2_task_2.Models.Fruits
 {
-    public abstract class Fruit
+    public abstract class Fruit : Ingredient
     {
         public int SlicesCount { get; set; } = 1;
 
-        public abstract void Prepare();
+        public virtual void Prepare()
+        {
+        }
     }
 }
