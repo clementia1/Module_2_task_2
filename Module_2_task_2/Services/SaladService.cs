@@ -36,10 +36,24 @@ namespace Module_2_task_2.Services
             return true;
         }
 
-        public Ingredient[] FilterByCountry(Country country)
+        public Ingredient[] Filter(double minNumber, double maxNumber)
         {
-            var filteredArray = Array.FindAll(_salad.Ingredients, item => item.CountryOfOrigin == country);
-            return filteredArray;
+            return Array.FindAll(_salad.Ingredients, item => item.Price >= minNumber && item.Price <= maxNumber);
+        }
+
+        public Ingredient[] Filter(double minPrice, double maxPrice, Country country)
+        {
+            var filterByPrice = Filter(minPrice, maxPrice);
+            var resultArray = Array.FindAll(filterByPrice, item => item.CountryOfOrigin == country);
+            return resultArray;
+        }
+
+        public Ingredient[] Filter(double minPrice, double maxPrice, double minCaloriePerGram, double maxCaloriePerGram, Country country)
+        {
+            var filteredByPrice = Filter(minPrice, maxPrice);
+            var filteredByCalories = Filter(minCaloriePerGram, maxCaloriePerGram);
+            var resultArray = Array.FindAll(filteredByCalories, item => item.CountryOfOrigin == country);
+            return resultArray;
         }
 
         public double GetTotalCalories()
