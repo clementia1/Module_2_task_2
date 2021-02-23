@@ -36,6 +36,11 @@ namespace Module_2_task_2.Services
             return true;
         }
 
+        public Ingredient[] Filter(Country country)
+        {
+            return Array.FindAll(_salad.Ingredients, item => item.CountryOfOrigin == country);
+        }
+
         public Ingredient[] Filter(double minNumber, double maxNumber)
         {
             return Array.FindAll(_salad.Ingredients, item => item.Price >= minNumber && item.Price <= maxNumber);
@@ -67,6 +72,11 @@ namespace Module_2_task_2.Services
             }
 
             return totalCalories;
+        }
+
+        public IComparer SortCaloriesDescending()
+        {
+            return new SortCaloriesDescendingHelper();
         }
     }
 }

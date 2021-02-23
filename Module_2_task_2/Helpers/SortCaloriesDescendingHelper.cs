@@ -9,7 +9,7 @@ namespace Module_2_task_2.Helpers
 {
     public class SortCaloriesDescendingHelper : IComparer
     {
-        int IComparer.Compare(object a, object b)
+        public int Compare(object a, object b)
         {
             Ingredient ing1 = (Ingredient)a;
             Ingredient ing2 = (Ingredient)b;

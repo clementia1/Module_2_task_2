@@ -28,7 +28,9 @@ namespace Module_2_task_2
             Ingredient apple = new Apple { Name = "Apple", Weight = 140, Price = 3.43, CountryOfOrigin = Country.Poland };
             _saladService.Add(apple);
 
-            var ukrainianIngredients = _saladService.FilterByCountry(Country.Ukraine);
+            var ukrainianIngredients = _saladService.Filter(Country.Ukraine);
+
+            Array.Sort(ukrainianIngredients, new SortCaloriesDescendingHelper());
         }
     }
 }
