@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Module_2_task_2.Models
+namespace Module_2_task_2.Models.Ingredients.Сondiments
 {
-    public interface ISliceable<T>
+    public class Сondiment : Ingredient
     {
-        T Slice();
     }
 }

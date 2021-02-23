@@ -6,66 +6,65 @@ namespace Module_2_task_2.Services
 {
     public class SaladService
     {
-        private readonly Salad _salad;
-
-        public SaladService()
+        public Ingredient[] GetIngredients(Salad salad)
         {
-            _salad = new Salad();
+            return salad.Ingredients;
         }
 
-        public Ingredient[] GetIngredients()
+        public bool Add(Salad salad, Ingredient ingredient)
         {
-            return _salad.Ingredients;
-        }
-
-        public bool Add(Ingredient ingredient)
-        {
-            _salad.Ingredients.Push(ingredient);
+            salad.Ingredients.Push(ingredient);
             return true;
         }
 
-        public bool RemoveByIndex(int index)
+        public bool RemoveByIndex(Salad salad, int index)
         {
-            _salad.Ingredients.RemoveByIndex(index);
+            salad.Ingredients.RemoveByIndex(index);
             return true;
         }
 
-        public bool RemoveAll()
+        public bool RemoveAll(Salad salad)
         {
-            _salad.Ingredients.Clear();
+            salad.Ingredients.Clear();
             return true;
         }
 
-        public Ingredient[] Filter(Country country)
+        public Salad FilterByCountry(Salad salad, Country country)
         {
-            return Array.FindAll(_salad.Ingredients, item => item.CountryOfOrigin == country);
+            salad.Ingredients = Array.FindAll(salad.Ingredients, item => item.CountryOfOrigin == country);
+            return salad;
         }
 
-        public Ingredient[] Filter(double minNumber, double maxNumber)
+        public Salad FilterByPrice(Salad salad, double minPrice, double maxPrice)
         {
-            return Array.FindAll(_salad.Ingredients, item => item.Price >= minNumber && item.Price <= maxNumber);
+            salad.Ingredients = Array.FindAll(salad.Ingredients, item => item.Price >= minPrice && item.Price <= maxPrice);
+            return salad;
         }
 
-        public Ingredient[] Filter(double minPrice, double maxPrice, Country country)
+        public Salad FilterByCalories(Salad salad, double minCaloriePerGram, double maxCaloriePerGram)
         {
-            var filterByPrice = Filter(minPrice, maxPrice);
-            var resultArray = Array.FindAll(filterByPrice, item => item.CountryOfOrigin == country);
-            return resultArray;
+            salad.Ingredients = Array.FindAll(salad.Ingredients, item => item.Price >= minCaloriePerGram && item.Price <= maxCaloriePerGram);
+            return salad;
         }
 
-        public Ingredient[] Filter(double minPrice, double maxPrice, double minCaloriePerGram, double maxCaloriePerGram, Country country)
+        public Salad Filter(Salad salad, double minPrice, double maxPrice, Country country)
         {
-            var filteredByPrice = Filter(minPrice, maxPrice);
-            var filteredByCalories = Filter(minCaloriePerGram, maxCaloriePerGram);
-            var resultArray = Array.FindAll(filteredByCalories, item => item.CountryOfOrigin == country);
-            return resultArray;
+            var filteredByPrice = FilterByPrice(salad, minPrice, maxPrice);
+            return FilterByCountry(filteredByPrice, country);
         }
 
-        public double GetTotalCalories()
+        public Salad Filter(Salad salad, double minPrice, double maxPrice, double minCaloriePerGram, double maxCaloriePerGram, Country country)
+        {
+            var filteredByPrice = FilterByPrice(salad, minPrice, maxPrice);
+            var filteredByCalories = FilterByCalories(filteredByPrice, minCaloriePerGram, maxCaloriePerGram);
+            return FilterByCountry(filteredByCalories, country);
+        }
+
+        public double GetTotalCalories(Salad salad)
         {
             double totalCalories = 0;
 
-            foreach (var item in _salad.Ingredients)
+            foreach (var item in salad.Ingredients)
             {
                 double caloriesForIngredient = item.Weight * item.CaloriePerGram;
                 totalCalories += caloriesForIngredient;
@@ -74,9 +73,12 @@ namespace Module_2_task_2.Services
             return totalCalories;
         }
 
-        public IComparer SortCaloriesDescending()
+        public void PrintIngredients(Salad salad)
         {
-            return new SortCaloriesDescendingHelper();
+            foreach (var item in salad.Ingredients)
+            {
+                Console.WriteLine($"{item.Name} from {item.CountryOfOrigin}, calories per gram: {item.CaloriePerGram}");
+            }
         }
     }
 }

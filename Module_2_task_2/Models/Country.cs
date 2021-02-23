@@ -11,6 +11,7 @@ namespace Module_2_task_2.Models
         Ukraine,
         Poland,
         Iran,
-        France
+        France,
+        India
     }
 }

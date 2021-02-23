@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,7 +6,7 @@ using Module_2_task_2.Models;
 
 namespace Module_2_task_2.Helpers
 {
-    public class SortCaloriesDescendingHelper : IComparer
+    public class SortCaloriesDescendingHelper : System.Collections.IComparer
     {
         public int Compare(object a, object b)
         {
